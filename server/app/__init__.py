@@ -24,6 +24,9 @@ def create_app():
     
     from app.routes.auth import auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    
+    from app.routes.study_sets import study_sets_bp 
+    app.register_blueprint(study_sets_bp, url_prefix='/study-sets')
 
     @app.route('/ping')
     def ping():
