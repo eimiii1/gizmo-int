@@ -19,6 +19,10 @@ Gizmo Integration is the backend service powering the Gizmo studying platform. B
 2. Create a virtual environment
 
 ```bash
+# macOS / Linux 
+python3 -m venv venv
+
+# Windows
 python -m venv venv 
 ```
 
