@@ -19,10 +19,6 @@ Gizmo Integration is the backend service powering the Gizmo studying platform. B
 2. Create a virtual environment
 
 ```bash
-# macOS / Linux 
-python3 -m venv venv
-
-# Windows
 python -m venv venv 
 ```
 
@@ -37,10 +33,24 @@ venv/Scripts/Activate.ps1 # Powershell
 venv/Scripts/activate     # cmd
 ```
 
-1. Install dependencies. I’ve created a .txt file containing all the required dependencies to install. See the command below
+1. Install dependencies. A `requirements.txt` file with all required dependencies is included.
 
 ```bash
-python run.py
+pip install -r requirements.txt
+```
+
+1. Set up your environment variables. Create a `.env` file in `/server` with:
+
+```bash
+DATABASE_URL=mysql+pymysql://USERNAME:PASSWORD@localhost/DATABASE_NAME
+SECRET_KEY=your-secret-key
+JWT_SECRET_KEY=your-jwt-secret-key
+```
+
+1. Run the backend
+
+```bash
+python app.py
 ```
 
 #### Frontend
@@ -64,5 +74,13 @@ pnpm dev
 # yarn 
 yarn dev
 ```
+
+### API Endpoints
+
+| **Method** | **Endpoint** | **Description** | **Authentication** |
+| --- | --- | --- | --- |
+| **POST** | `api/register` | Create a new user account | False |
+| **POST** | `api/login` | Log in and receive a JWT access token | False |
+| **GET** | `api/me` | Get the current logged-in user’s info | True |
 
 wait for updates
