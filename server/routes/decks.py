@@ -30,4 +30,14 @@ def create_deck():
 @decks_bp.route('', methods=['GET'])
 @jwt_required() 
 def get_decks():
-    return 'Hello nigga!'
+    user_id = get_jwt_identity()
+    decks = Deck.query.filter_by(user_id=user_id).all()
+
+    return jsonify([
+        {
+            'id' : deck.id,
+            'title' : deck.title,
+            'description' : deck.description
+        }
+        for deck in decks
+    ]), 200
