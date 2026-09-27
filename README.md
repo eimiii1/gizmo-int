@@ -1,8 +1,8 @@
-# Study AI Integration
+# Gizmo Integration
 
 ## Overview
 
-Study AI Integration is the backend service powering the Gizmo studying platform. Built with Flask, it handles authentication, data management, and AI-powered features through the Gemini API — helping students study smarter through personalized learning experiences.
+Gizmo Integration is the backend service powering the Gizmo studying platform. Built with Flask, it handles authentication, data management, and AI-powered features through the Gemini API — helping students study smarter through personalized learning experiences.
 
 ## Getting Started
 
@@ -84,8 +84,13 @@ yarn dev
 | **GET** | `/api/me` | Get the current logged-in user’s info | True |
 | **POST** | `/api/decks` | Create a new deck | True |
 | **GET** | `/api/decks` | List the current user’s decks | True |
-| **POST** | `/api/decks/<deck_id>/flashcards` | Create a flashcard in a specific deck | True |
+| **PUT** | `/api/decks/<deck_id>` | Update a deck | True |
+| **DELETE** | `/api/decks/<deck_id>` | Delete a deck | True |
+| **POST** | `/api/decks/<deck_id>/flashcards/` | Create a flashcard in a specific deck | True |
 | **GET** | `/api/decks/<deck_id>/flashcards` | List all flashcards in a specific deck | True |
+| **GET** | `/api/decks/<deck_id>/flashcards/<card_id>` | Get a single flashcard | True |
+| **PUT** | `/api/decks/<deck_id>/flashcards/<card_id>` | Update a flashcard in a specific deck | True |
+| **DELETE** | `/api/decks/<deck_id>/flashcards/<card_id>` | Delete a flashcard in a specific deck | True |
 
 ### Testing the API
 
@@ -94,7 +99,7 @@ You can test the API using cURL (Client URL) if you don’t have an API client l
 ```bash
 curl -X <METHOD> http://127.0.0.1:5000/<ENDPOINT> \
 	-H "Content-Type: application/json" \
-	-H "Authorization:: Bearer <YOUR_TOKEN>" \
+	-H "Authorization: Bearer <YOUR_TOKEN>" \
 	-d '{"key" : "value"}'
 ```
 
