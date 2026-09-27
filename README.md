@@ -77,10 +77,25 @@ yarn dev
 
 ### API Endpoints
 
-| **Method** | **Endpoint** | **Description** | **Authentication** |
+| **Method** | **Endpoint** | **Description** | **Auth Required** |
 | --- | --- | --- | --- |
-| **POST** | `api/register` | Create a new user account | False |
-| **POST** | `api/login` | Log in and receive a JWT access token | False |
-| **GET** | `api/me` | Get the current logged-in user’s info | True |
+| **POST** | `/api/register` | Create a new user account | False |
+| **POST** | `/api/login` | Log in and receive a JWT access token | False |
+| **GET** | `/api/me` | Get the current logged-in user’s info | True |
+| **POST** | `/api/decks` | Create a new deck | True |
+| GET | `/api/decks` | List the current user’s decks | True |
 
-wait for updates
+### Testing the API
+
+You can test the API using cURL (Client URL) if you don’t have an API client like Postman. Otherwise, feel free to use Postman or your preferred API client instead.
+
+```bash
+curl -X <METHOD> http://127.0.0.1:5000/<ENDPOINT> \
+	-H "Content-Type: application/json" \
+	-H "Authorization:: Bearer <YOUR_TOKEN>" \
+	-d '{"key" : "value"}'
+```
+
+- Swap `<METHOD>` and `<ENDPOINT>` for whichever route you’re testing (see the table above).
+- The `Authorization` header is only needed for routes marked “True” under Authentication — grab `<YOUR_TOKEN>` from the `/api/login` response, for example.
+- The `-d` flag (request body) is only needed for `POST` requests that expect JSON data.
