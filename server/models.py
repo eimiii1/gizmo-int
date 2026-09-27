@@ -27,7 +27,11 @@ class Deck(db.Model):
     parent_deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=True)
 
     owner = db.relationship('User', backref='decks')
-    subdecks = db.relationship('Deck', backref=db.backref('parent_deck', remote_side=[id]))
+    subdecks = db.relationship(
+        'Deck', 
+        backref=db.backref('parent_deck', remote_side=[id]),
+        cascade='all, delete-orphan'
+        )
 
 
 # flashcard model 
@@ -37,4 +41,4 @@ class Flashcard(db.Model):
     back = db.Column(db.Text, nullable=False)
     deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
 
-    deck = db.relationship('Deck', backref='flashcards')
+    deck = db.relationship('Deck', backref=db.backref('flashcards', cascade='all, delete-orphan'))
