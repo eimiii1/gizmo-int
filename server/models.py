@@ -26,3 +26,13 @@ class Deck(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     owner = db.relationship('User', backref='decks')
+
+
+# flashcard model 
+class Flashcard(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    front = db.Column(db.Text, nullable=False)
+    back = db.Column(db.Text, nullable=False)
+    deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
+
+    deck = db.relationship('Deck', backref='flashcards')
