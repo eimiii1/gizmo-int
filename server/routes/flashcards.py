@@ -43,3 +43,22 @@ def get_flashcards(deck_id):
         {'id' : card.id, 'front' : card.front, 'back' : card.back}
         for card in deck.flashcards
     ]), 200
+
+@flashcards_bp.route('/<int:deck_id>/flashcards/<int:card_id>', methods=['GET'])
+@jwt_required()
+def get_flashcard(deck_id, card_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    card = Flashcard.query.filter_by(id=card_id, deck_id=deck.id).first()
+    if not card:
+        return jsonify({'error' : 'Flashcard not found.'}), 404
+
+    return jsonify({
+        'id' : card.id,
+        'front' : card.front,
+        'back' : card.back
+    }), 200
