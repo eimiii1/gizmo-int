@@ -24,8 +24,10 @@ class Deck(db.Model):
     title = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    parent_deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=True)
 
     owner = db.relationship('User', backref='decks')
+    subdecks = db.relationship('Deck', backref=db.backref('parent_deck', remote_side=[id]))
 
 
 # flashcard model 
