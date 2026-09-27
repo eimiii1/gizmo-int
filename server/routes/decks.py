@@ -12,11 +12,25 @@ def create_deck():
 
     title = data.get('title')
     description = data.get('description')
+    parent_deck_id = data.get('parent_deck_id')
 
     if not title:
         return jsonify({'error' : 'Title is required.'}), 400
 
-    new_deck = Deck(title=title, description=description, user_id=user_id)
+    if parent_deck_id:
+        parent_deck = Deck.query.filter_by(id=parent_deck_id, user_id=user_id).first()
+        if not parent_deck:
+            return jsonify({'error' : 'Parent deck not found.'}), 404
+
+        if parent_deck.parent_deck_id is not None:
+            return jsonify({'error' : 'Cannot create a subdeck for a subdeck.'}), 400
+
+    new_deck = Deck(
+        title=title, 
+        description=description, 
+        user_id=user_id,
+        parent_deck_id=parent_deck_id
+        )
 
     db.session.add(new_deck)
     db.session.commit()
@@ -24,7 +38,8 @@ def create_deck():
     return jsonify({
         'id' : new_deck.id,
         'title' : new_deck.title,
-        'description' : new_deck.description
+        'description' : new_deck.description,
+        'parent_deck_id' : new_deck.parent_deck_id
     }), 201
 
 @decks_bp.route('', methods=['GET'])
@@ -40,4 +55,4 @@ def get_decks():
             'description' : deck.description
         }
         for deck in decks
-    ]), 200
+    ]), 201
