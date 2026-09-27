@@ -83,7 +83,7 @@ yarn dev
 | **POST** | `/api/login` | Log in and receive a JWT access token | False |
 | **GET** | `/api/me` | Get the current logged-in user’s info | True |
 | **POST** | `/api/decks` | Create a new deck | True |
-| GET | `/api/decks` | List the current user’s decks | True |
+| **GET** | `/api/decks` | List the current user’s decks | True |
 
 ### Testing the API
 
