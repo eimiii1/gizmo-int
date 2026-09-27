@@ -62,3 +62,51 @@ def get_flashcard(deck_id, card_id):
         'front' : card.front,
         'back' : card.back
     }), 200
+
+@flashcards_bp.route('/<int:deck_id>/flashcards/<int:card_id>', methods=['PUT'])
+@jwt_required()
+def update_flashcard(deck_id, card_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    card = Flashcard.query.filter_by(id=card_id, deck_id=deck.id).first()
+    if not card:
+        return jsonify({'error' : 'Flashcard not found.'}), 404
+
+    data = request.get_json()
+    front = data.get('front')
+    back = data.get('back')
+
+    if not front or not back:
+        return jsonify({'error' : 'Front and back are required.'}), 400
+
+    card.front = front
+    card.back = back
+    db.session.commit()
+
+    return jsonify({
+        'id' : card.id,
+        'front' : card.front,
+        'back' : card.back
+    })
+
+@flashcards_bp.route('/<int:deck_id>/flashcards/<int:card_id>', methods=['DELETE'])
+@jwt_required()
+def delete_flashcard(deck_id, card_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    card = Flashcard.query.filter_by(id=card_id, deck_id=deck.id).first()
+    if not card:
+        return jsonify({'error' : 'Flashcard not found.'}), 404
+
+    db.session.delete(card)
+    db.session.commit()
+
+    return jsonify({'message' : 'Flashcard deleted successfully.'}), 200
