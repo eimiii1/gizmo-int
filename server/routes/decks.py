@@ -56,3 +56,32 @@ def get_decks():
         }
         for deck in decks
     ]), 201
+
+@decks_bp.route('/<int:deck_id>', methods=['PUT'])
+@jwt_required()
+def update_deck(deck_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    if deck.parent_deck_id is not None:
+        return jsonify({'error' : 'Cannot update a subdeck.'}), 400
+
+    data = request.get_json()
+    title = data.get('title')
+    description = data.get('description')
+
+    if not title:
+        return jsonify({'error' : 'Title is required.'}), 400
+
+    deck.title = title 
+    deck.description = description 
+    db.session.commit()
+
+    return jsonify({
+        'id' : deck.id,
+        'title' : deck.title,
+        'description' : deck.description
+    }), 200
