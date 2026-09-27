@@ -85,3 +85,20 @@ def update_deck(deck_id):
         'title' : deck.title,
         'description' : deck.description
     }), 200
+
+@decks_bp.route('/<int:deck_id>', methods=['DELETE'])
+@jwt_required()
+def delete_deck(deck_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    if deck.parent_deck_id is not None:
+        return jsonify({'error' : 'Cannot delete a subdeck.'}), 400
+
+    db.session.delete(deck)
+    db.session.commit()
+
+    return jsonify({'message' : 'Deck deleted successfully.'}), 200
