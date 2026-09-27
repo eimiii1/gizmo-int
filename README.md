@@ -84,6 +84,8 @@ yarn dev
 | **GET** | `/api/me` | Get the current logged-in user’s info | True |
 | **POST** | `/api/decks` | Create a new deck | True |
 | **GET** | `/api/decks` | List the current user’s decks | True |
+| **POST** | `/api/decks/<deck_id>/flashcards` | Create a flashcard in a specific deck | True |
+| **GET** | `/api/decks/<deck_id>/flashcards` | List all flashcards in a specific deck | True |
 
 ### Testing the API
 
