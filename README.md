@@ -1,8 +1,8 @@
-# Gizmo Integration
+# Study AI Integration
 
 ## Overview
 
-Gizmo Integration is the backend service powering the Gizmo studying platform. Built with Flask, it handles authentication, data management, and AI-powered features through the Gemini API — helping students study smarter through personalized learning experiences.
+Study AI Integration is the backend service powering the Gizmo studying platform. Built with Flask, it handles authentication, data management, and AI-powered features through the Gemini API — helping students study smarter through personalized learning experiences.
 
 ## Getting Started
 
