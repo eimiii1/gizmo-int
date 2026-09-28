@@ -31,3 +31,16 @@ def create_note(deck_id):
         'deck_id' : new_note.deck_id
     }), 201
 
+@notes_bp.route('<int:deck_id>/notes', methods=['GET'])
+@jwt_required()
+def get_notes(deck_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    return jsonify([
+        {'id' : note.id, 'title' : note.title, 'content' : note.content, 'deck_id' : note.deck_id}
+        for note in deck.notes
+    ]), 200
