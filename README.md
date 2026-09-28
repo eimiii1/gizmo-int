@@ -91,6 +91,11 @@ yarn dev
 | **GET** | `/api/decks/<deck_id>/flashcards/<card_id>` | Get a single flashcard | True |
 | **PUT** | `/api/decks/<deck_id>/flashcards/<card_id>` | Update a flashcard in a specific deck | True |
 | **DELETE** | `/api/decks/<deck_id>/flashcards/<card_id>` | Delete a flashcard in a specific deck | True |
+| **POST** | `/api/decks/<deck_id>/notes` | Create a note in a specific deck | True |
+| **GET** | `/api/decks/<deck_id>/notes` | List all notes in a specific deck | True |
+| **GET** | `/api/decks/<deck_id>/notes/<note_id>` | Get a single note | True |
+| **PUT** | `/api/decks/<deck_id>/notes/<note_id>` | Update a note in a specific deck | True |
+| **DELETE** | `/api/decks/<deck_id>/notes/<note_id>` | Delete a note in a specific deck | True |
 
 ### Testing the API
 
