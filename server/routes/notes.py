@@ -94,3 +94,20 @@ def update_note(deck_id, note_id):
         'content' : note.content
     }), 200
 
+@notes_bp.route('<int:deck_id>/notes/<int:note_id>', methods=['DELETE'])
+@jwt_required()
+def delete_note(deck_id, note_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    note = Note.query.filter_by(id=note_id, deck_id=deck.id).first()
+    if not note:
+        return jsonify({'error' : 'Note not found.'}), 404
+
+    db.session.delete(note)
+    db.session.commit()
+
+    return jsonify({'message' : 'Note deleted successfully.'}), 200
