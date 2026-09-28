@@ -42,3 +42,14 @@ class Flashcard(db.Model):
     deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
 
     deck = db.relationship('Deck', backref=db.backref('flashcards', cascade='all, delete-orphan'))
+
+
+# note model
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
+
+    deck = db.relationship('Deck', backref=db.backref('notes', cascade='all, delete-orphan'))
+    
