@@ -44,3 +44,22 @@ def get_notes(deck_id):
         {'id' : note.id, 'title' : note.title, 'content' : note.content, 'deck_id' : note.deck_id}
         for note in deck.notes
     ]), 200
+
+@notes_bp.route('<int:deck_id>/notes/<int:note_id>', methods=['PUT'])
+@jwt_required()
+def get_note(deck_id, note_id):
+    user_id = get_jwt_identity()
+
+    deck = Deck.query.filter_by(id=deck_id, user_id=user_id).first()
+    if not Deck:
+        return jsonify({'error' : 'Deck not found.'}), 404
+
+    note = Note.query.filter_by(id=note_id, deck_id=deck.id).first()
+    if not note:
+        return jsonify({'error' : 'Note not found.'}), 404
+
+    return jsonify({
+        'id' : note.id,
+        'title' : note.title,
+        'content' : note.content,
+    }), 200
