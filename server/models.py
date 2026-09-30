@@ -52,12 +52,14 @@ class Note(db.Model):
     deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
 
     deck = db.relationship('Deck', backref=db.backref('notes', cascade='all, delete-orphan'))
-    
+
+# furniture model - a full collection of items that users can possibly own.
 class Furniture(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     image_url = db.Column(db.String(255), nullable=True)
 
+# user furniture model - a collection of items that a user owns.
 class UserFurniture(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -65,3 +67,22 @@ class UserFurniture(db.Model):
 
     owner = db.relationship('User', backref='furniture_collection')
     furniture = db.relationship('Furniture')
+
+# quiz model
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    deck_id = db.Column(db.Integer, db.ForeignKey('decl.id'), nullable=False)
+
+    deck = db.relationship('Deck', backref=db.backref('quizzes', cascade='all, delete-orphan'))
+
+# quiz question model
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question_text = db.Column(db.Text, nullable=False)
+    correct_answer = db.Column(db.String(255), nullable=False)
+    choices = db.Column(db.JSON, nullable=False) # stoer choices as JSON array (multiple choices)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+
+    quiz = db.relationship('Quiz', backref=db.backref('questions', cascade='all, delete-orphan'))
+
