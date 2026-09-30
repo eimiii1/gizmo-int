@@ -72,7 +72,7 @@ class UserFurniture(db.Model):
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
-    deck_id = db.Column(db.Integer, db.ForeignKey('decl.id'), nullable=False)
+    deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
 
     deck = db.relationship('Deck', backref=db.backref('quizzes', cascade='all, delete-orphan'))
 
