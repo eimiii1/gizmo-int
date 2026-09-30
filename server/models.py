@@ -53,3 +53,15 @@ class Note(db.Model):
 
     deck = db.relationship('Deck', backref=db.backref('notes', cascade='all, delete-orphan'))
     
+class Furniture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    image_url = db.Column(db.String(255), nullable=True)
+
+class UserFurniture(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    furniture_id = db.Column(db.Integer, db.ForeignKey('furniture.id'), nullable=False)
+
+    owner = db.relationship('User', backref='furniture_collection')
+    furniture = db.relationship('Furniture')
