@@ -81,8 +81,8 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question_type = db.Column(db.String(20), nullable=False)
     question_text = db.Column(db.Text, nullable=False)
-    correct_answer = db.Column(db.String(255), nullable=False)
-    choices = db.Column(db.JSON, nullable=False) # store choices as JSON array (multiple choices)
+    correct_answer = db.Column(db.JSON, nullable=False)
+    choices = db.Column(db.JSON, nullable=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
 
     quiz = db.relationship('Quiz', backref=db.backref('questions', cascade='all, delete-orphan'))
