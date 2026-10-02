@@ -18,7 +18,7 @@ Flashcards:
 Return ONLY a valid JSON array, with no extra text, in this exact format:
 [
     {{
-        "question" : "...",
+        "question_text" : "...",
         "correct_answer" : "...",
         "choices" : ["...", "...", "...", "..."]
     }}
