@@ -4,6 +4,7 @@ from models import db
 from routes.auth import auth_bp
 from routes.decks import decks_bp
 from routes.flashcards import flashcards_bp
+from routes.quizzes import quizzes_bp
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 
@@ -16,6 +17,7 @@ db.init_app(app)
 app.register_blueprint(auth_bp)
 app.register_blueprint(decks_bp)
 app.register_blueprint(flashcards_bp)
+app.register_blueprint(quizzes_bp)
 
 jwt = JWTManager(app)
 
