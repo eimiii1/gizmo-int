@@ -9,7 +9,7 @@ curl -X <METHOD> http://127.0.0.1:5000/<ENDPOINT> \
   -d '{"key": "value"}'
 ```
 
-- Swap `<METHOD>` and `<ENDPOINT>` for whichever route you're testing — see [API Reference](docs/api-reference.md) for the full list.
+- Swap `<METHOD>` and `<ENDPOINT>` for whichever route you're testing — see [API Reference](api-reference.md) for the full list.
 - The `Authorization` header is only needed for routes marked "Yes" under Auth Required. Grab `<YOUR_TOKEN>` from the `/api/login` response.
 - The `d` flag (request body) is only needed for `POST`/`PUT` requests that expect JSON data.
 
