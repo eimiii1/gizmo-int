@@ -1,113 +1,17 @@
-# Gizmo Integration
+# Study AI Integration
 
-## Overview
+Backend service for an AI-powered study platform. Built with Flask, it handles authentication, data management, and AI-powered quiz generation through the Gemini API.
 
-Gizmo Integration is the backend service powering the Gizmo studying platform. Built with Flask, it handles authentication, data management, and AI-powered features through the Gemini API — helping students study smarter through personalized learning experiences.
+## Documentation
 
-## Getting Started
+- [Setup Guide](https://app.notion.com/p/docs/setup.md) — getting the backend and frontend running
+- [API Reference](https://app.notion.com/p/docs/api-reference.md) — full list of endpoints
+- [Testing Guide](https://app.notion.com/p/docs/testing.md) — how to test the API with cURL or Postman
+- [Features Overview](https://app.notion.com/p/docs/features.md) — decks, subdecks, flashcards, notes, quizzes, and furniture rewards
 
-### Prerequisites
+## Tech Stack
 
-- Python 3.12.7
-- MySQL
-- Node.js
-- pip
-
-#### Backend
-
-1. Navigate to the `/server` folder
-2. Create a virtual environment
-
-```bash
-python -m venv venv 
-```
-
-1. Activate the virtual environment
-
-```bash
-# macOS / Linux 
-source venv/bin/activate 
-
-# Windows 
-venv/Scripts/Activate.ps1 # Powershell
-venv/Scripts/activate     # cmd
-```
-
-1. Install dependencies. A `requirements.txt` file with all required dependencies is included.
-
-```bash
-pip install -r requirements.txt
-```
-
-1. Set up your environment variables. Create a `.env` file in `/server` with:
-
-```bash
-DATABASE_URL=mysql+pymysql://USERNAME:PASSWORD@localhost/DATABASE_NAME
-SECRET_KEY=your-secret-key
-JWT_SECRET_KEY=your-jwt-secret-key
-```
-
-1. Run the backend
-
-```bash
-python app.py
-```
-
-#### Frontend
-
-1. Navigate to the `/client` folder
-2. Install dependencies 
-
-```bash
-npm install
-```
-
-1. Run the dev server 
-
-```bash
-# npm 
-npm run dev 
-
-# pnpm 
-pnpm dev
-
-# yarn 
-yarn dev
-```
-
-### API Endpoints
-
-| **Method** | **Endpoint** | **Description** | **Auth Required** |
-| --- | --- | --- | --- |
-| **POST** | `/api/register` | Create a new user account | False |
-| **POST** | `/api/login` | Log in and receive a JWT access token | False |
-| **GET** | `/api/me` | Get the current logged-in user’s info | True |
-| **POST** | `/api/decks` | Create a new deck | True |
-| **GET** | `/api/decks` | List the current user’s decks | True |
-| **PUT** | `/api/decks/<deck_id>` | Update a deck | True |
-| **DELETE** | `/api/decks/<deck_id>` | Delete a deck | True |
-| **POST** | `/api/decks/<deck_id>/flashcards/` | Create a flashcard in a specific deck | True |
-| **GET** | `/api/decks/<deck_id>/flashcards` | List all flashcards in a specific deck | True |
-| **GET** | `/api/decks/<deck_id>/flashcards/<card_id>` | Get a single flashcard | True |
-| **PUT** | `/api/decks/<deck_id>/flashcards/<card_id>` | Update a flashcard in a specific deck | True |
-| **DELETE** | `/api/decks/<deck_id>/flashcards/<card_id>` | Delete a flashcard in a specific deck | True |
-| **POST** | `/api/decks/<deck_id>/notes` | Create a note in a specific deck | True |
-| **GET** | `/api/decks/<deck_id>/notes` | List all notes in a specific deck | True |
-| **GET** | `/api/decks/<deck_id>/notes/<note_id>` | Get a single note | True |
-| **PUT** | `/api/decks/<deck_id>/notes/<note_id>` | Update a note in a specific deck | True |
-| **DELETE** | `/api/decks/<deck_id>/notes/<note_id>` | Delete a note in a specific deck | True |
-
-### Testing the API
-
-You can test the API using cURL (Client URL) if you don’t have an API client like Postman. Otherwise, feel free to use Postman or your preferred API client instead.
-
-```bash
-curl -X <METHOD> http://127.0.0.1:5000/<ENDPOINT> \
-	-H "Content-Type: application/json" \
-	-H "Authorization: Bearer <YOUR_TOKEN>" \
-	-d '{"key" : "value"}'
-```
-
-- Swap `<METHOD>` and `<ENDPOINT>` for whichever route you’re testing (see the table above).
-- The `Authorization` header is only needed for routes marked “True” under Authentication — grab `<YOUR_TOKEN>` from the `/api/login` response, for example.
-- The `-d` flag (request body) is only needed for `POST` requests that expect JSON data.
+- **Backend:** Flask, Flask-SQLAlchemy, Flask-JWT-Extended, Flask-CORS
+- **Database:** MySQL
+- **Frontend:** React (Vite)
+- **AI:** Gemini API
