@@ -1,13 +1,13 @@
 import {Navigate, Route, Routes} from 'react-router'
-import Login from '@/pages/Login.tsx'
+import Auth from './pages/Auth'
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Navigate to='/login' replace />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='*' element={<Navigate to='/login' replace />} />
+        <Route path='/' element={<Navigate to='/' replace />} />
+        <Route path='/auth' element={<Auth />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </>
   )
