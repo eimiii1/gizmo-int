@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router";
 
 type View = "login" | "register";
 
@@ -122,6 +123,12 @@ function LoginForm({ onRegister }: LoginFormProps) {
       })
     })
 
+    if (!response) {
+      return
+    }
+
+    window.location.href = '/'
+    
     const data = await response.json()
     localStorage.setItem('token', data.access_token)
   };
